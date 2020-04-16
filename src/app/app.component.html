@@ -1,0 +1,13 @@
+<!-- pasarReceta recibie el valor emitido desde el componente header -->
+<app-header (pasarReceta)="navegar($event)"></app-header>
+
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+    <!-- app-recetas se carga si su  propiedad  objetoRecibido tiene algun valor-->
+    <app-recetas *ngIf="objetoRecibido === 'receta'"></app-recetas>
+        <app-listado-compras *ngIf="objetoRecibido !== 'receta'"></app-listado-compras>
+    
+</div>
+</div>
+</div>

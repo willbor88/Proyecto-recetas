@@ -1,0 +1,40 @@
+<div class="row">
+<div class="col-xs-12">
+    <p>imagen</p>
+<img [src]="recetaDetalle.imagePath"
+ alt=""
+  class="img-responsive"
+  style="max-height: 300px;">        
+ </div>
+ </div>
+ <div class="row">
+<div class="col-xs-12">
+    <h1>{{recetaDetalle.nombre}}</h1>
+</div>
+ </div>
+ <div class="row">
+     <div class="col-xs-12">
+          <div class="btn-group">
+              <button class="bnt btn-primary dropdown-toggle">Control de resetas
+                  <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                  <li><a href="#">Agregar Ingrediente</a></li>
+                  <li><a href="#">Editar receta</a></li>
+                  <li><a href="#">Delete receta</a></li>
+              </ul>
+          </div>
+     </div>
+ </div>
+<div class="row">
+    <div class="col-xs-12">
+       {{ recetaDetalle.descripcion}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        Ingredientes
+    </div>
+</div>
+
+

@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form>
+        <div class="row">
+            <div class="col-sm-5 form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text"
+                 name="" id="nombre"
+                  class="form-control"
+                  #nombreInput>
+            </div>
+            <div class="col-sm-2 form-group">
+                <label for="cantidad">Cantidad</label>
+                <input type="number"
+                 name="" id="cantidad"
+                 class="form-control"
+                 #cantidadInput>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <button class="btn btn-success" type="button" (click)="enviarElemento()">Añadir</button>
+                <button class="btn btn-danger" type="button">Borrar</button>
+                <button class="btn btn-primary" type="button">Limpiar</button>
+            </div>
+        </div>
+    </form>
+  </div>  
+</div>

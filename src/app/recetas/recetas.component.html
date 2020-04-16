@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-5">
+        <!-- recetas-listado le pasa el elemento  a este componente -->
+        <app-recetas-listado (elementoReenvio)="elementoRecibido= $event"></app-recetas-listado>
+    </div>
+    <div class="col-md-7">
+
+        <!-- ElementoRecibido tiene el elemento pasdo por recetas-listado  -->
+        <!-- ElementoRecibido le pasa a recetas-detalles su valor -->
+<app-recetas-detalles *ngIf="elementoRecibido;else infoText" [recetaDetalle]="elementoRecibido"></app-recetas-detalles>
+<ng-template #infoText>
+    <p>Ingrese un receta..</p>
+</ng-template>
+
+
+    </div>
+</div>
