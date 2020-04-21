@@ -1,14 +1,14 @@
 import { Injectable ,EventEmitter} from '@angular/core';
 import { Receta } from './recetas/reseta.model';
 import { Ingrediente } from 'src/shared/ingrediente.model';
+import { CompraListadoServicio } from './listado-compras/compras-listado.service';
 
 
-@Injectable()
-export class NameService {
-}
+@Injectable()//Con  Injectable podemos iyectar otro servicio dentro de este
+
 
 export class  RecetasServicio{
-constructor(){}
+constructor(private comprasListadoServicio: CompraListadoServicio){}
 
 recetaSeleccionada= new EventEmitter<Receta>()
 private Ingrediente:Ingrediente[]=[
@@ -42,4 +42,13 @@ extraerReceta(){
 return this.receta.slice()//Usamos el metodo slice en vacio  para generar una copia del array
 
 }
+
+//Pasandole data a otro servicion
+anadirIngredientesaListaCompras(ingredientes:Ingrediente[]){
+console.log(ingredientes)
+    this.comprasListadoServicio.anadirVariosIngredientes(ingredientes)///Reenviamos el array de ingredientes al otro servicio para añadir varios ingredientes al estado
+}
+
+
+
 }
