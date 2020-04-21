@@ -10,6 +10,9 @@ import { RecetasDetallesComponent } from './recetas/recetas-detalles/recetas-det
 import { RecetaElementosComponent } from './recetas/recetas-detalles/receta-elementos/receta-elementos.component';
 import { ListadoComprasComponent } from './listado-compras/listado-compras.component';
 import { ComprasEdicionComponent } from './listado-compras/compras-edicion/compras-edicion.component';
+import { DropdownDirectiva } from 'src/shared/dropdown.directiva';
+import { CompraListadoServicio } from './listado-compras/compras-listado.service';
+import { RecetasServicio } from './recetas.servicios';
 
 
 @NgModule({
@@ -22,13 +25,14 @@ import { ComprasEdicionComponent } from './listado-compras/compras-edicion/compr
     RecetaElementosComponent,
     ListadoComprasComponent,
     ComprasEdicionComponent,
+    DropdownDirectiva,
   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [CompraListadoServicio,RecetasServicio ],//Podemos usar este servicio incluso en otros servicios
   bootstrap: [AppComponent]
 })
 export class AppModule { }

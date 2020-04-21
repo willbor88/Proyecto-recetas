@@ -9,8 +9,6 @@
       <!-- elementoReceta lo esta recidiendo <app-receta-elementos> usando el   @Input() receta: Receta -->
       <app-receta-elementos 
       *ngFor="let elementoReceta of recetas"
-      [receta]="elementoReceta"
-      (EnviandoElem)="reenviarElemento($event)">
-      </app-receta-elementos>
-   </div> 
+      [receta]="elementoReceta"></app-receta-elementos>
+       </div> 
 </div>

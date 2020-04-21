@@ -14,17 +14,17 @@
  </div>
  <div class="row">
      <div class="col-xs-12">
-          <div class="btn-group">
-              <button class="bnt btn-primary dropdown-toggle">Control de resetas
+          <div class="btn-group ">
+              <button class="bnt btn-primary dropdown-toggle " data-toggle="dropdown">Control de resetas
                   <span class="caret"></span>
               </button>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu" role="menu">
                   <li><a href="#">Agregar Ingrediente</a></li>
                   <li><a href="#">Editar receta</a></li>
                   <li><a href="#">Delete receta</a></li>
               </ul>
           </div>
-     </div>
+          </div>
  </div>
 <div class="row">
     <div class="col-xs-12">
@@ -33,8 +33,14 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-        Ingredientes
+        <ul class="list-group">
+            <li class="list-item" *ngFor="let ingrediente of recetaDetalle.ingredientes">
+                {{ingrediente.nombre}}
+            </li>
+            
+        </ul>
     </div>
+      
 </div>
 
 

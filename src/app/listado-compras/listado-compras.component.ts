@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Ingrediente } from 'src/shared/ingrediente.model';
+import { CompraListadoServicio } from './compras-listado.service';
 
 @Component({
   selector: 'app-listado-compras',
@@ -7,20 +8,19 @@ import { Ingrediente } from 'src/shared/ingrediente.model';
   styleUrls: ['./listado-compras.component.css']
 })
 export class ListadoComprasComponent implements OnInit {
-ingredientes:Ingrediente[] =[
-  new Ingrediente ('Manzana',5),
-  new Ingrediente ('Tomates',10),
+ingredientes:Ingrediente[] =[]
+  
  
-]
-  constructor() { }
+
+  constructor( private compraListadoServicio:CompraListadoServicio) { }
 
   ngOnInit(): void {
+    this.ingredientes = this.compraListadoServicio.extraerIngredientes()
+    this.compraListadoServicio.actulizarIngredientes.subscribe((NuevosIngre:Ingrediente[])=>{//Recibimos el array actulizado
+      this.ingredientes= NuevosIngre //Actulizamos la vista 
+    })
   }
 
-  anadirIngrediente(ObjetoEvent:Ingrediente){
-
-    this.ingredientes.push(ObjetoEvent)
-    console.log(this.ingredientes)
-  }
+ 
 
 }
