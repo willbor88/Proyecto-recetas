@@ -1,6 +1,6 @@
 <div class="row">
 <div class="col-xs-12">
-    <button class="btn btn-success">Nueva receta</button>
+    <button class="btn btn-success" (click)="navegar()">Nueva receta</button>
 </div>
 </div>
 <hr>
@@ -8,7 +8,10 @@
    <div class="col-xs-12">
       <!-- elementoReceta lo esta recidiendo <app-receta-elementos> usando el   @Input() receta: Receta -->
       <app-receta-elementos 
-      *ngFor="let elementoReceta of recetas"
-      [receta]="elementoReceta"></app-receta-elementos>
+      *ngFor="let elementoReceta of recetas  let i= index"
+      [receta]="elementoReceta"
+      [index]="i">
+    </app-receta-elementos>
        </div> 
-</div>
+       
+       

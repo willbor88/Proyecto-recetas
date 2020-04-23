@@ -1,11 +1,28 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { RecetasComponent } from './recetas/recetas.component';
+import { ListadoComprasComponent } from './listado-compras/listado-compras.component';
+import { RecetaInicioComponent } from './recetas/receta-inicio/receta-inicio.component';
+import { RecetasDetallesComponent } from './recetas/recetas-detalles/recetas-detalles.component';
+import { RecetaEdicionComponent } from './recetas/receta-edicion/receta-edicion.component';
 
 
-const routes: Routes = [];
+const approutes: Routes = [
+  {path:'', redirectTo:'/recetas',pathMatch:'full'},//Especifiar que si la ruta esta completamente en blanco
+{path:'recetas',component:RecetasComponent,children:[
+{path:'',component:RecetaInicioComponent},//SIn alguan ruta
+{path:'nueva',component:RecetaEdicionComponent},//Primero cargar un componente sin parametros
+{path:':id',component:RecetasDetallesComponent},
+{path:':id/edicion',component:RecetaEdicionComponent},//Debemos cargar primero la recepcion de parametros
+//Podmos cargar el componente de las dos formas
+
+]},
+{path:'listado-compras',component:ListadoComprasComponent},
+
+];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(approutes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, } from '@angular/core';
+import { Component, OnInit, Input, } from '@angular/core';
 import { Receta } from '../../reseta.model';
-import { RecetasServicio } from 'src/app/recetas.servicios';
+
 
 
 
@@ -11,14 +11,16 @@ import { RecetasServicio } from 'src/app/recetas.servicios';
 })
 export class RecetaElementosComponent implements OnInit {
   @Input() receta: Receta//Esta reciendo cada elemento desde el componente padre
-  
-  constructor(private recetaServicio:RecetasServicio) { }
+  @Input()index:number
+  constructor() { }
 
   ngOnInit(): void {
+
+    // console.log('receta elementos')
+    // console.log(this.index)
+  }
+  
   }
 
-  enviarElemento(){
-    this.recetaServicio.recetaSeleccionada.emit(this.receta)//Enviar mi objeto a otro componente usando un servicio
-  }
+ 
 
-}

@@ -36,6 +36,14 @@ this.receta.push(nuevaReceta)
 
 }
 
+
+extraerUnicaReceta(index:number){
+
+    return this.receta[index]
+
+}
+
+
 extraerReceta(){
     //Imprimir el componente receta usando el servicio
     //Nunca modificar el estado orinigal

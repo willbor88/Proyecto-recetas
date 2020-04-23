@@ -13,6 +13,8 @@ import { ComprasEdicionComponent } from './listado-compras/compras-edicion/compr
 import { DropdownDirectiva } from 'src/shared/dropdown.directiva';
 import { CompraListadoServicio } from './listado-compras/compras-listado.service';
 import { RecetasServicio } from './recetas.servicios';
+import { RecetaInicioComponent } from './recetas/receta-inicio/receta-inicio.component';
+import { RecetaEdicionComponent } from './recetas/receta-edicion/receta-edicion.component';
 
 
 @NgModule({
@@ -26,6 +28,8 @@ import { RecetasServicio } from './recetas.servicios';
     ListadoComprasComponent,
     ComprasEdicionComponent,
     DropdownDirectiva,
+    RecetaInicioComponent,
+    RecetaEdicionComponent,
   
   ],
   imports: [

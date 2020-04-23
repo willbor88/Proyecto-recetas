@@ -1,4 +1,4 @@
-import { Component, OnInit, Output,EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Receta } from '../recetas/reseta.model';
 
 
@@ -8,17 +8,12 @@ import { Receta } from '../recetas/reseta.model';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
- @Input()receta:Receta
- @Output() pasarReceta= new EventEmitter()
+
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  seleccionar(recetaString:string){
-
-    this.pasarReceta.emit(recetaString);//Este objeto es pasado solo al  emelento que encrusta este mimso elemento (padre)
-
-  }
-
+ 
 }
