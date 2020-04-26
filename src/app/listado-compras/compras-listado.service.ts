@@ -1,12 +1,12 @@
-import { Injectable,EventEmitter } from '@angular/core';
+import { Injectable,} from '@angular/core';
 import { Ingrediente } from 'src/shared/ingrediente.model';
-
+import { Subject } from "rxjs";
 
 @Injectable()
 export class CompraListadoServicio {
     constructor(){}
-actulizarIngredientes= new EventEmitter<Ingrediente[]>()
-
+actualizarIngredientes= new Subject<Ingrediente[]>()
+editandoElemento= new  Subject<number>()
 private ingrediente:Ingrediente[]=[
     new Ingrediente ('Manzana',5),
     new Ingrediente ('Tomates',10),
@@ -14,7 +14,12 @@ private ingrediente:Ingrediente[]=[
 
 anadirIngrediente(nuevoIngrediente:Ingrediente){
     this.ingrediente.push(nuevoIngrediente)
-    this.actulizarIngredientes.emit(this.ingrediente)//emitimos el array actulizado cuando añandimos ingredientes
+    this.actualizarIngredientes.next(this.ingrediente)//Escuchamos los cambios en unar variable y la emitimos inmediatamente
+}
+
+extraerIngrediente(index:number){
+return this.ingrediente[index]
+
 }
 
 extraerIngredientes(){
@@ -27,7 +32,18 @@ anadirVariosIngredientes(nuevosIngredientes:Ingrediente[]){//añadimos varios in
 //  }
 
 this.ingrediente.push(...nuevosIngredientes)//extrae los elementos del array nuevosIngredientes y los añade en forma de lista al array ingrediente
-this.actulizarIngredientes.emit(this.ingrediente.slice())
+this.actualizarIngredientes.next(this.ingrediente.slice())
+}
+
+actualizarLosIngredientes(index:number, nuevoIngrediente:Ingrediente){
+this.ingrediente[index]=nuevoIngrediente
+this.actualizarIngredientes.next(this.ingrediente.slice())
+}
+
+eliminarIngrediente(index:number){
+
+    this.ingrediente.splice(index,1)
+    this.actualizarIngredientes.next(this.ingrediente.slice())
 }
 
 }

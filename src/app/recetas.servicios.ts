@@ -1,7 +1,8 @@
-import { Injectable ,EventEmitter} from '@angular/core';
+import { Injectable ,} from '@angular/core';
 import { Receta } from './recetas/reseta.model';
 import { Ingrediente } from 'src/shared/ingrediente.model';
 import { CompraListadoServicio } from './listado-compras/compras-listado.service';
+import { Subject } from 'rxjs';
 
 
 @Injectable()//Con  Injectable podemos iyectar otro servicio dentro de este
@@ -9,10 +10,8 @@ import { CompraListadoServicio } from './listado-compras/compras-listado.service
 
 export class  RecetasServicio{
 constructor(private comprasListadoServicio: CompraListadoServicio){}
-
-recetaSeleccionada= new EventEmitter<Receta>()
+reflejarcambios = new Subject<Receta[]>()
 private Ingrediente:Ingrediente[]=[
- 
 
 ]
 private receta:Receta[]= [//Inicializar el array con un valor
@@ -32,14 +31,21 @@ private receta:Receta[]= [//Inicializar el array con un valor
 anadirReceta(nuevaReceta:Receta){
 
 this.receta.push(nuevaReceta)
+this.reflejarcambios.next(this.receta)
 
+}
 
+actualizarReceta(index:number, nuevaReceta:Receta){
+
+this.receta[index]= nuevaReceta
+this.reflejarcambios.next(this.receta)
 }
 
 
 extraerUnicaReceta(index:number){
 
     return this.receta[index]
+    
 
 }
 
@@ -55,6 +61,13 @@ return this.receta.slice()//Usamos el metodo slice en vacio  para generar una co
 anadirIngredientesaListaCompras(ingredientes:Ingrediente[]){
 console.log(ingredientes)
     this.comprasListadoServicio.anadirVariosIngredientes(ingredientes)///Reenviamos el array de ingredientes al otro servicio para añadir varios ingredientes al estado
+}
+
+eliminarReceta(index:number){
+
+this.receta.splice(index,1)
+this.reflejarcambios.next(this.receta.slice())
+
 }
 
 

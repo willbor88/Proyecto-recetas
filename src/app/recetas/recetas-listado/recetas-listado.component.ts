@@ -1,7 +1,8 @@
-import { Component, OnInit,} from '@angular/core';
+import { Component, OnInit, OnDestroy,} from '@angular/core';
 import { Router ,ActivatedRoute} from "@angular/router";
 import { Receta } from '../reseta.model';
 import { RecetasServicio } from "../../recetas.servicios";
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -9,9 +10,9 @@ import { RecetasServicio } from "../../recetas.servicios";
   templateUrl: './recetas-listado.component.html',
   styleUrls: ['./recetas-listado.component.css']
 })
-export class RecetasListadoComponent implements OnInit {
- 
-  recetas: Receta[]=[]
+export class RecetasListadoComponent implements OnInit,OnDestroy {
+   recetas: Receta[]=[]
+   subscription:Subscription
 
   constructor(private recetasServico:RecetasServicio,private router:Router,
     private route:ActivatedRoute)
@@ -23,13 +24,18 @@ export class RecetasListadoComponent implements OnInit {
   ngOnInit( ){
 
   this.recetas = this.recetasServico.extraerReceta()
+  this.subscription=  this.recetasServico.reflejarcambios.subscribe((recetaActulizadas:Receta[])=>{
+    this.recetas= recetaActulizadas
+  })
   }
 
   navegar(){
    // console.log(this.route)
-    this.router.navigate(['nueva'],{relativeTo:this.route})
+    this.router.navigate(['nueva',],{relativeTo:this.route})
   }
   
-  
+  ngOnDestroy(){
+this.subscription.unsubscribe()
+  }
 
 }

@@ -6,13 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
- //title='Recetas'
-  objetoRecibido=''
 
-  navegar (ObjetoEvento:string){
-   this.objetoRecibido= ObjetoEvento//Enviado desde la etiqueta header
-console.log(this.objetoRecibido)
-  }
+
 }
 
 

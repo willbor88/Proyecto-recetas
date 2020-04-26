@@ -35,8 +35,15 @@ id:number
   }
 
   editarReceta(){
- //this.router.navigate(['edicion'],{relativeTo:this.route})
+
  this.router.navigate(['edicion'],{relativeTo:this.route})//NO necesitamos pasar parametro pues ya lo pasamos desde el componente  receta-elementos
-  }
+// this.router.navigate(['../',this.id,'edicion'],{relativeTo:this.route})  
+}
+
+borrarReceta(){
+
+this.recetasServicio.eliminarReceta(this.id)
+this.router.navigate(['recetas'])
+}
 
 }
