@@ -11,10 +11,10 @@
          </ul>
          <ul class="nav navbar-nav navbar-right">
             <li class="dropdown " >
-                <a  class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+                <a  class="dropdown-toggle" data-toggle="dropdown">Administrar recetas <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li style="cursor: pointer;"><a>Guardar</a></li>
-                    <li style="cursor: pointer;"><a>Ver receta</a></li>
+                    <li style="cursor: pointer;"><a (click)="guardarReceta()">Guardar</a></li>
+                    <li style="cursor: pointer;"><a (click)="extraccionRecetas()">Ver receta</a></li>
                 </ul>
             </li>
          </ul>

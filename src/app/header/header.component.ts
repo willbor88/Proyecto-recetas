@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Receta } from '../recetas/reseta.model';
+import { DataStorageService } from 'src/shared/data-storage.service';
 
 
 @Component({
@@ -10,9 +10,19 @@ import { Receta } from '../recetas/reseta.model';
 export class HeaderComponent implements OnInit {
 
 
-  constructor() { }
+  constructor(private dataStorageService:DataStorageService ) { }
 
   ngOnInit(): void {
+  }
+
+  guardarReceta(){
+this.dataStorageService.almacenarRecetas()
+
+  }
+
+  extraccionRecetas(){
+
+    this.dataStorageService.extraccionRecetas().subscribe()
   }
 
  

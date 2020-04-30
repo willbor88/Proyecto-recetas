@@ -47,11 +47,13 @@ submit(){
  {
    //Podemos acceder al objeto recetaForm usando value
    this.recetaServicio.actualizarReceta(this.id, this.recetaForm.value)
+   this.router.navigate(['../'], {relativeTo:this.route})
  }
 
  else{
 
   this.recetaServicio.anadirReceta( this.recetaForm.value)
+  this.router.navigate(['../'], {relativeTo:this.route})
  }
 
 this.cancelar()
@@ -66,6 +68,7 @@ this.cancelar()
 
 if(this.modoEdicion){
   const receta= this.recetaServicio.extraerUnicaReceta(this.id)
+ 
   nombreReceta=receta.nombre
   recetaImagePath =receta.imagePath
   descripcion=receta.descripcion
@@ -83,6 +86,8 @@ if(this.modoEdicion){
       )
         }
   }
+
+
 }
 
 this.recetaForm= new FormGroup({
@@ -95,6 +100,7 @@ this.recetaForm= new FormGroup({
   }
 
   anadirIngredientes(){
+    //Añade los campos para un nuevo ingrediente
 //Cast:Definir a typescript que tipo de dato es una variable
 (<FormArray>this.recetaForm.get('ingredientess')).push(
   new FormGroup({

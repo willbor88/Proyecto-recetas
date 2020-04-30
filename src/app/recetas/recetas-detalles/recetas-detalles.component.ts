@@ -23,7 +23,18 @@ id:number
     //Cargamos el conponente desde el servicio segun su id
    this.route.params.subscribe((parametros:Params)=>{
     this.id= + parametros['id']//Usamos l singno + para convertir el string a un tipo number
-   this.recetaDetalle= this.recetasServicio.extraerUnicaReceta(this.id)
+    this.recetaDetalle= this.recetasServicio.extraerUnicaReceta(this.id)
+   
+   
+    
+      // this.recetasServicio.reflejarcambios.subscribe((data:Receta[])=>{
+      //   console.log(data)
+      //   this.recetaDetalle= data[this.id]
+      //  })
+    
+  
+
+   
    })
      
   }

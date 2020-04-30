@@ -11,22 +11,24 @@ import { Subject } from 'rxjs';
 export class  RecetasServicio{
 constructor(private comprasListadoServicio: CompraListadoServicio){}
 reflejarcambios = new Subject<Receta[]>()
+CambiosUnicaReceta=new Subject<Receta>()
 private Ingrediente:Ingrediente[]=[
 
 ]
-private receta:Receta[]= [//Inicializar el array con un valor
-    new Receta('PIZZA NAPOLITANA',
-    'Masa tierna y delgada pero bordes altos, es la versión propia de la cocina napolitana de la pizza redonda.',
-    'https://torange.biz/photo/38/IMAGE/pizza-health-recipe-38030.jpg',
-    [new Ingrediente('Cebolla',2),
-    new Ingrediente('Jamon',4)
-]),
-    new Receta('Carne a la plancha',
-    'La preparación de la carne depende mucho del gusto de cada uno, pero hay errores que nadie debe cometer si no quiere acabar masticando un filete duro o cocido',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQqtLiHmWFxEu6eXhQAyXQuK29c-Xfz9jBy4s9o4Wr8Pn0alouB&usqp=CAU',
-    [new Ingrediente('Queso',2),
-    new Ingrediente('Papas',20),])
-]
+private receta:Receta[] =[]
+// private receta:Receta[]= [//Inicializar el array con un valor
+//     new Receta('PIZZA NAPOLITANA',
+//     'Masa tierna y delgada pero bordes altos, es la versión propia de la cocina napolitana de la pizza redonda.',
+//     'https://torange.biz/photo/38/IMAGE/pizza-health-recipe-38030.jpg',
+//     [new Ingrediente('Cebolla',2),
+//     new Ingrediente('Jamon',4)
+// ]),
+//     new Receta('Carne a la plancha',
+//     'La preparación de la carne depende mucho del gusto de cada uno, pero hay errores que nadie debe cometer si no quiere acabar masticando un filete duro o cocido',
+//     'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQqtLiHmWFxEu6eXhQAyXQuK29c-Xfz9jBy4s9o4Wr8Pn0alouB&usqp=CAU',
+//     [new Ingrediente('Queso',2),
+//     new Ingrediente('Papas',20),])
+// ]
 
 anadirReceta(nuevaReceta:Receta){
 
@@ -37,17 +39,21 @@ this.reflejarcambios.next(this.receta)
 
 actualizarReceta(index:number, nuevaReceta:Receta){
 
-this.receta[index]= nuevaReceta
-this.reflejarcambios.next(this.receta)
+return this.receta[index]= nuevaReceta
+//this.reflejarcambios.next(this.receta)
 }
 
 
 extraerUnicaReceta(index:number){
 
-    return this.receta[index]
-    
+  return  this.receta[index]
+   // return  this.reflejarcambios.next(this.receta)
 
 }
+
+// ActulizarcambiosDetalle(){
+    
+// }
 
 
 extraerReceta(){
@@ -68,6 +74,11 @@ eliminarReceta(index:number){
 this.receta.splice(index,1)
 this.reflejarcambios.next(this.receta.slice())
 
+}
+
+sobrescribirRecetas(recetas:Receta[]){
+   this.receta = recetas
+   this.reflejarcambios.next(this.receta.slice())
 }
 
 
