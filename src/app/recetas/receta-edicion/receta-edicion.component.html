@@ -52,10 +52,12 @@
     -El ngfor duplica los inputs  accedo al objeto del  recetaForm, busco la propiedad ingredientess.Controls y la duplico
 -->
 <div class="row">
+<!-- Los controles se crean al llamar el metodo  anadirIngredientes(), para crear un elemento de tipo control en el array "ingredientess" del FormGroup "recetaForm" -->
         <div class="col-sx-12" formArrayName="ingredientess" >
        <div class="row " 
        [formGroupName]="i"
        *ngFor="let ControlIngrediente of recetaForm.get('ingredientess').controls let i =index" style="margin-top: 10px;">
+       <!-- ingredientess le envia a la vista un control nuevo  -->
            <div class="col-xs-8">
             <input type="text" class="form-control" formControlName="nombre">
            </div>

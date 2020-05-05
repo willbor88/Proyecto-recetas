@@ -23,10 +23,16 @@ export class RecetasListadoComponent implements OnInit,OnDestroy {
   
   ngOnInit( ){
 
-  this.recetas = this.recetasServico.extraerReceta()
+  
   this.subscription=  this.recetasServico.reflejarcambios.subscribe((recetaActulizadas:Receta[])=>{
     this.recetas= recetaActulizadas
   })
+ // this.recetas = this.recetasServico.extraerReceta()
+  this.recetasServico.extraerReceta()
+  
+ this.recetasServico.reflejarcambios.subscribe((recetas:Receta[])=>{
+  this.recetas = recetas
+ })
   }
 
   navegar(){

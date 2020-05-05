@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormArray, Validators, AbstractControl } from '@angular/forms';
 import { RecetasServicio } from 'src/app/recetas.servicios';
 import { Router } from "@angular/router";
+import { Receta } from '../reseta.model';
 
 
 
@@ -15,18 +16,24 @@ export class RecetaEdicionComponent implements OnInit {
 id:number
 modoEdicion=false
 recetaForm:FormGroup
+ recetaIngredientes= new FormArray([])//Es un array que permite guardar elementos de tipo Control(input type)
   constructor(private route:ActivatedRoute,
    private recetaServicio:RecetasServicio,
    private router:Router
     ) { }
 
   ngOnInit(): void {
-//RECIBIMOS UN ID  DESDE LA URL PASADO POR OTRO COMPONENTE
-    this.route.params.subscribe((parametros:Params)=>{
-      this.id =+ parametros['id']
-      this.modoEdicion = parametros['id'] != null//si no hay parametros modoEdicion sea true
-      console.log(this.modoEdicion)
+    this.route.params.subscribe((data)=>{//Recibimos los parametro desde la url
+      this.id= + data['id']
+     console.log(data)
     })
+
+    this.route.data.subscribe((data)=>{//Recibimos la data desde el resolver
+      this.modoEdicion = data['0'] != null
+     
+    })
+
+    
 
     this.iniciarForm()
   }
@@ -39,21 +46,22 @@ submit(){
 // this.recetaForm.value['imagePath'],
 // this.recetaForm.value['descripcion'],
 // this.recetaForm.value['ingredientess']
-
 // )
 
 //los cambios no se reflejan en el componente que los despliega solo con actuliar, debemos usar un observable tipo Subject para emitir los cambios
  if(this.modoEdicion)
  {
-   //Podemos acceder al objeto recetaForm usando value
-   this.recetaServicio.actualizarReceta(this.id, this.recetaForm.value)
+   //Podemos acceder a los valores del  objeto recetaForm usando value
+   this.recetaServicio.actualizarReceta(this.id, this.recetaForm.value)//paso al servicio los valores del formGroup
+   this.recetaServicio.extraerReceta()
    this.router.navigate(['../'], {relativeTo:this.route})
+  
  }
 
  else{
 
-  this.recetaServicio.anadirReceta( this.recetaForm.value)
-  this.router.navigate(['../'], {relativeTo:this.route})
+  this.recetaServicio.anadirReceta( this.recetaForm.value)//paso al servicio los valores del formGroup
+  this.router.navigate(['../'], {relativeTo:this.route})//Devolverme un nivel de mi posicion actual.(receta detalle)
  }
 
 this.cancelar()
@@ -64,18 +72,22 @@ this.cancelar()
     let nombreReceta=''
     let recetaImagePath=''
     let descripcion=''
-    let recetaIngredientes= new FormArray([])//Crear array para añadir elementos de un formulario
+  
 
 if(this.modoEdicion){
-  const receta= this.recetaServicio.extraerUnicaReceta(this.id)
- 
-  nombreReceta=receta.nombre
+  let receta
+  this.route.data.subscribe((data)=>{
+    receta = data['0']
+       // console.log(data[0])
+  })
+    nombreReceta=receta.nombre
   recetaImagePath =receta.imagePath
   descripcion=receta.descripcion
-//SI existen ingredientes creo los FormGroup y lo Formcontrol añada los valoes seguna la cantidad de elementos del array (receta.ingredientes)
+//SI existen ingredientes creo los FormGroup y lo Formcontrol añada los valoes seguna la cantidad de elementos (receta.ingredientes)Array
   if(receta['ingredientes']){
+        console.log(this.recetaIngredientes)
     for (const ingrediente of receta.ingredientes) {
-      recetaIngredientes.push(
+      this.recetaIngredientes.push(
            new FormGroup({  //Añadimos cada formgroup y cada control de formulario
             'nombre': new FormControl(ingrediente.nombre,Validators.required),//Le damos un nombre y valor a cada control
           'cantidad': new FormControl(ingrediente.cant,[
@@ -87,28 +99,44 @@ if(this.modoEdicion){
         }
   }
 
+  else{
+    this.añadirControl()
+    console.log('no hay ingredientes')    
+   // console.log(this.recetaIngredientes)
+    
+  }
+
 
 }
-
+//Vincular con "formControlName" los controles de la vista para LLenar todos los capos del formulario
 this.recetaForm= new FormGroup({
 'nombre': new FormControl(nombreReceta,Validators.required),
 'imagePath': new FormControl(recetaImagePath,Validators.required),
 'descripcion': new FormControl(descripcion,Validators.required),
-'ingredientess': recetaIngredientes ///Añadimos el form array con los elementos creados al formulario
+'ingredientess': this.recetaIngredientes ///Igualamos el campo ingredientess a  el formArray(recetaIngredientes) que contine los elementos creados al formulario
 
 })
   }
 
   anadirIngredientes(){
-    //Añade los campos para un nuevo ingrediente
-//Cast:Definir a typescript que tipo de dato es una variable
-(<FormArray>this.recetaForm.get('ingredientess')).push(
-  new FormGroup({
+   //Añadiendo nuevos controles a la vista 
+  (<FormArray>this.recetaForm.get('ingredientess')).push(
+   new FormGroup({
     //Pasando parameros para validar, iniciamos en null para no cargar ningun valor en el input
 'nombre':new FormControl(null,[Validators.required]),
 'cantidad':new FormControl(null,[Validators.required, Validators.pattern('^[1-9]+[0-9]*$')])
   })
 )
+  }
+
+//Crear un control nuevo
+  añadirControl(){
+    this.recetaIngredientes.push(//Añadimos un FormGroup al FormArray(recetaIngredientes)
+    new FormGroup({ 
+  'nombre':new FormControl(null,[Validators.required]),//Añadilos al FormGroup un elemento de tipo control(type="control")
+  'cantidad':new FormControl(null,[Validators.required, Validators.pattern('^[1-9]+[0-9]*$')])
+    })
+    )
   }
 
   cancelar(){

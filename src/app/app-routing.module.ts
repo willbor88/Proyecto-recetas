@@ -13,7 +13,7 @@ const approutes: Routes = [
 {path:'recetas',component:RecetasComponent,children:[
 {path:'',component:RecetaInicioComponent},//SIn alguan ruta
 {path:'nueva',component:RecetaEdicionComponent},//Primero cargar un componente sin parametros
-{path:':id',component:RecetasDetallesComponent,resolve:[RecetasResolverService]},
+{path:':id',component:RecetasDetallesComponent,resolve:[RecetasResolverService]},//
 //Debemos cargar primero la recepcion de parametros
 {path:':id/edicion',component:RecetaEdicionComponent,resolve:[RecetasResolverService]},//Resolver
 //Podmos cargar el componente de las dos formas

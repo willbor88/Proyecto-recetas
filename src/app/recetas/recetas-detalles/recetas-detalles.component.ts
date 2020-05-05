@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, OnChanges, } from '@angular/core';
 import { Receta } from '../reseta.model';
 import { RecetasServicio } from 'src/app/recetas.servicios';
 import { ActivatedRoute ,Params,Router} from "@angular/router";
@@ -10,32 +10,24 @@ import { ActivatedRoute ,Params,Router} from "@angular/router";
 })
 export class RecetasDetallesComponent implements OnInit {
 recetaDetalle:Receta
-id:number
+id:any
+mostrar=false
 
   constructor(private recetasServicio:RecetasServicio,
     private router:Router,
     private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-    //El conponentes se esta cargado desde  el routerOutlet desde recetas component
-    //consumir servicio
-    //Pararecibir los cambios dinamicamente debemos usar un observable
-    //Cargamos el conponente desde el servicio segun su id
-   this.route.params.subscribe((parametros:Params)=>{
-    this.id= + parametros['id']//Usamos l singno + para convertir el string a un tipo number
-    this.recetaDetalle= this.recetasServicio.extraerUnicaReceta(this.id)
-   
-   
-    
-      // this.recetasServicio.reflejarcambios.subscribe((data:Receta[])=>{
-      //   console.log(data)
-      //   this.recetaDetalle= data[this.id]
-      //  })
-    
-  
+       
+    this.route.data.subscribe((data)=>{
+        this.recetaDetalle= data[0]
+      //console.log(data[0])
+    })
 
+    if(this.recetaDetalle){
+      this.mostrar=true
+    }
    
-   })
      
   }
 
@@ -56,5 +48,8 @@ borrarReceta(){
 this.recetasServicio.eliminarReceta(this.id)
 this.router.navigate(['recetas'])
 }
+// ngOnChanges(){
+  
+// }
 
 }

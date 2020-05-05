@@ -9,13 +9,14 @@ import { Subject } from 'rxjs';
 
 
 export class  RecetasServicio{
-constructor(private comprasListadoServicio: CompraListadoServicio){}
-reflejarcambios = new Subject<Receta[]>()
+  reflejarcambios = new Subject<Receta[]>()
 CambiosUnicaReceta=new Subject<Receta>()
 private Ingrediente:Ingrediente[]=[
 
 ]
 private receta:Receta[] =[]
+constructor(private comprasListadoServicio: CompraListadoServicio){}
+
 // private receta:Receta[]= [//Inicializar el array con un valor
 //     new Receta('PIZZA NAPOLITANA',
 //     'Masa tierna y delgada pero bordes altos, es la versión propia de la cocina napolitana de la pizza redonda.',
@@ -37,29 +38,45 @@ this.reflejarcambios.next(this.receta)
 
 }
 
-actualizarReceta(index:number, nuevaReceta:Receta){
+actualizarReceta(index:number, nuevaReceta){
+  console.log(index)
+    this.receta[index]= nuevaReceta  
+this.reflejarcambios.next(this.receta.slice()) 
+console.log(this.receta.slice())
 
-return this.receta[index]= nuevaReceta
-//this.reflejarcambios.next(this.receta)
+// this.receta.push(nuevaReceta)
+// this.reflejarcambios.next(this.receta)
+
+   
+
 }
-
 
 extraerUnicaReceta(index:number){
-
-  return  this.receta[index]
-   // return  this.reflejarcambios.next(this.receta)
-
+       //this.receta[index]
+       console.log(this.receta[index])
+      this.CambiosUnicaReceta.next(this.receta[index])
+     
+    
+      //return  this.receta[index]
+}
+extraerUnicaReceta1(index:number){
+  //console.log(this.receta[index])
+  return this.receta[index]
+  
+  //this.CambiosUnicaReceta.next(this.receta[index])
+   console.log(this.receta[index])
+ //this.reflejarcambios.next(this.receta)
+ // return  this.receta[index]
 }
 
-// ActulizarcambiosDetalle(){
-    
-// }
 
-
-extraerReceta(){
+extraerReceta(){//Devulve el listado de recetas
     //Imprimir el componente receta usando el servicio
     //Nunca modificar el estado orinigal
-return this.receta.slice()//Usamos el metodo slice en vacio  para generar una copia del array
+    this.reflejarcambios.next(this.receta.slice())
+   // console.log('extrallendo receta')
+    //console.log(this.receta.slice())
+//return this.receta.slice()//Usamos el metodo slice en vacio  para generar una copia del array
 
 }
 
@@ -79,6 +96,7 @@ this.reflejarcambios.next(this.receta.slice())
 sobrescribirRecetas(recetas:Receta[]){
    this.receta = recetas
    this.reflejarcambios.next(this.receta.slice())
+   
 }
 
 
