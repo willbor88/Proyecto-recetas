@@ -14,14 +14,16 @@ constructor(private http:HttpClient,
 
 
 almacenarRecetas(){
+   
+    let recetas
+ recetas= this.recetasServicio.extraerReceta()
 
-const recetas=  this.recetasServicio.extraerReceta()
+
 //Creamos el objeto pasando la palabra "recetas" en firebase con la extencion .json
 return this.http.put('https://recetas-app-cc6fa.firebaseio.com/recetas.json', recetas).subscribe((respuesta)=>{
-
     console.log(respuesta)
 })
-}
+ }
 
 
 extraccionRecetas(){

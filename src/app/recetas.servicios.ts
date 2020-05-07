@@ -42,7 +42,7 @@ actualizarReceta(index:number, nuevaReceta){
   console.log(index)
     this.receta[index]= nuevaReceta  
 this.reflejarcambios.next(this.receta.slice()) 
-console.log(this.receta.slice())
+//console.log(this.receta.slice())
 
 // this.receta.push(nuevaReceta)
 // this.reflejarcambios.next(this.receta)
@@ -70,13 +70,16 @@ extraerUnicaReceta1(index:number){
 }
 
 
-extraerReceta(){//Devulve el listado de recetas
+extraerReceta(){
+  
+  //Devulve el listado de recetas
     //Imprimir el componente receta usando el servicio
     //Nunca modificar el estado orinigal
     this.reflejarcambios.next(this.receta.slice())
+    
    // console.log('extrallendo receta')
     //console.log(this.receta.slice())
-//return this.receta.slice()//Usamos el metodo slice en vacio  para generar una copia del array
+return this.receta.slice()//Usamos el metodo slice en vacio  para generar una copia del array
 
 }
 

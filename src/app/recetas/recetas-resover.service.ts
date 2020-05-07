@@ -22,7 +22,7 @@ id:any
 resolve(route:ActivatedRouteSnapshot, state:RouterStateSnapshot){
        //console.log('estoy en resolver')
     this.id = + route.params.id
-     console.log(route.params.id)
+    // console.log(route.params.id)
      
    this.recetas= this.recetasService.extraerUnicaReceta1(this.id)
    //console.log(this.recetas)

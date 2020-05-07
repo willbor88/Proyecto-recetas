@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   guardarReceta(){
 this.dataStorageService.almacenarRecetas()
 
+
   }
 
   extraccionRecetas(){

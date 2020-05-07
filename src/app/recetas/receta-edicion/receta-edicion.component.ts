@@ -25,7 +25,7 @@ recetaForm:FormGroup
   ngOnInit(): void {
     this.route.params.subscribe((data)=>{//Recibimos los parametro desde la url
       this.id= + data['id']
-     console.log(data)
+    // console.log(data)
     })
 
     this.route.data.subscribe((data)=>{//Recibimos la data desde el resolver
@@ -84,13 +84,13 @@ if(this.modoEdicion){
   recetaImagePath =receta.imagePath
   descripcion=receta.descripcion
 //SI existen ingredientes creo los FormGroup y lo Formcontrol añada los valoes seguna la cantidad de elementos (receta.ingredientes)Array
-  if(receta['ingredientes']){
+  if(receta['ingredientess']){
         console.log(this.recetaIngredientes)
-    for (const ingrediente of receta.ingredientes) {
+    for (const ingrediente of receta.ingredientess) {
       this.recetaIngredientes.push(
            new FormGroup({  //Añadimos cada formgroup y cada control de formulario
             'nombre': new FormControl(ingrediente.nombre,Validators.required),//Le damos un nombre y valor a cada control
-          'cantidad': new FormControl(ingrediente.cant,[
+          'cantidad': new FormControl(ingrediente.cantidad,[
             Validators.required,
             Validators.pattern('^[1-9]+[0-9]*$')
           ])
